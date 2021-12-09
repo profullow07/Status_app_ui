@@ -46,7 +46,7 @@ class Love_screen extends StatelessWidget {
                             padding: const EdgeInsets.fromLTRB(
                                 20.0, 10.0, 5.0, 10.0),
                             child: SelectableText(
-                              "“As he read,I fell in love the way you fall asleep: slowly, and then all at once.” – John Green",
+                              "       “As he read,\nI fell in love the way you fall asleep: slowly,\n and then all at once.”\n             –John Green",
                               style: TextStyle(
                                   fontSize: 30.0,
                                   color: Colors.white,
