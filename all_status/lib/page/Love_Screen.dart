@@ -2,9 +2,20 @@ import 'package:all_status/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class Love_screen extends StatelessWidget {
+class Love_screen extends StatefulWidget {
   const Love_screen({Key? key}) : super(key: key);
+
+  @override
+  State<Love_screen> createState() => _Love_screenState();
+}
+
+class _Love_screenState extends State<Love_screen> {
+  var yourText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -29,123 +40,91 @@ class Love_screen extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-            bottom: false,
             child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              height: 250,
+              width: 360,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset("images/lve.jpg")),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      yourText =
+                          "Lorem Ipsum \n is simply dummy  text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.asset("images/lovest.jpg")),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                20.0, 10.0, 5.0, 10.0),
-                            child: SelectableText(
-                              "       “As he read,\nI fell in love the way you fall asleep: slowly,\n and then all at once.”\n             –John Green",
-                              style: TextStyle(
-                                  fontSize: 30.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
+                SizedBox(
+                  height: 50,
+                  width: 90,
+                  child: ElevatedButton(
+                    child: Text(
+                      'Invite',
+                      style: TextStyle(
+                        fontSize: 22,
                       ),
                     ),
-                  ],
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                    ),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 75,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 10.0,
-                            ),
-                          ]),
-                      child: TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.share,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          "Share",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                SizedBox(
+                  height: 50,
+                  width: 90,
+                  child: ElevatedButton(
+                    child: Text(
+                      'Copy',
+                      style: TextStyle(
+                        fontSize: 22,
                       ),
                     ),
-                    SizedBox(
-                      width: 20,
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: yourText))
+                          .then((value) {
+                        return Fluttertoast.showToast(msg: " Copied Success");
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
                     ),
-                    Container(
-                      height: 75,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 10.0,
-                            ),
-                          ]),
-                      child: TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.copy,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          "Copy",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                    height: 50,
+                    width: 90,
+                    child: ElevatedButton(
+                      child: Text(
+                        'Share',
+                        style: TextStyle(
+                          fontSize: 22,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 10.0,
-                            ),
-                          ]),
-                      child: TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.person_add,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          "Invite",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
                       ),
-                      height: 75,
-                      width: 100,
-                    ),
-                  ],
-                )
+                    )),
               ],
-            )),
+            )
+          ],
+        )),
       ),
     );
   }
